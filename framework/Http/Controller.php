@@ -7,8 +7,7 @@ class Controller {
 
     protected function render(string $view, array $data = [])
     {
-        $compiler = self::createCompiler();
-        return $compiler($this->buildViewPath($view), $data);
+        return self::createCompiler()($this->buildViewPath($view), $data);
     }
 
     private static function createCompiler()
@@ -24,10 +23,5 @@ class Controller {
     private function buildViewPath($viewName)
     {
         return VIEW_PATH . implode(DS, explode($this->viewDelimiter, $viewName)) . '.' . $this->viewFileExtention;
-    }
-
-    private function buildJsonViewPath($viewName)
-    {
-        return CORE_VIEW_PATH . $viewName . '.' . $this->viewFileExtention;
     }
 }

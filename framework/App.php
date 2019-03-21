@@ -6,13 +6,12 @@ use Core\Http\Request;
 use Core\Http\Router;
 
 class App {
-    public static function run() 
+    public static function run($withTimer = false) 
     {
-        $now = microtime(true);
-        self::init();
-        self::globals();
-        self::dispatch();
-        error_log('Execution time: ' . (microtime(true) - $now)*1000 . ' milliseconds');
+        call_user_func_array(
+            'self::run' . ($withTimer ? 'WithTimer' : 'WithoutTimer'),
+            ['self::init', 'self::globals', 'self::dispatch']
+        );
     }
 
     private static function init()
@@ -53,7 +52,7 @@ class App {
 
     private static function globals()
     {
-        require_once 'globals.php';
+        require_once 'Globals.php';
     }
 
     public static function getAppConstants()
@@ -64,5 +63,19 @@ class App {
     public static function getAppConstantsJson()
     {
         return json_encode(self::getAppConstants());
+    }
+
+    private static function runWithoutTimer()
+    {
+        foreach (func_get_args() as $callable) {
+            call_user_func($callable);
+        }
+    }
+
+    private static function runWithTimer()
+    {
+        $now = microtime(true);
+        call_user_func_array('self::runWithoutTimer', func_get_args());
+        error_log('Execution time: ' . (microtime(true) - $now)*1000 . ' milliseconds');
     }
 }

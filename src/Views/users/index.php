@@ -1,6 +1,3 @@
-<?php 
-/** @var array $list */
-?>
 <ul>
 
 <?php foreach ($list as $index): ?>
