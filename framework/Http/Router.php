@@ -10,7 +10,8 @@ class Router {
 
     public function __construct()
     {
-        $this->routes = new \Core\Container(include (CONFIG_PATH . 'routes.php') ?? []);
+        $compiledRoutes = RouterCompiler::getCompiledRoutes();
+        $this->routes = new \Core\Container(unserialize($compiledRoutes));
         $this->request = request();
     }
 
@@ -49,10 +50,8 @@ class Router {
     protected function matchRoutes($path)
     {
         $matches = [];
-
         foreach ($this->routes->all() as $route => $params) {
-            $pattern = self::convertToRegExp($route, $params);
-            if (preg_match($pattern, $path, $matches)) {
+            if (preg_match($route, $path, $matches)) {
                 $this->params = array_slice($matches, 1);
 
                 return $route;
@@ -60,31 +59,5 @@ class Router {
         }
 
         return null;
-    }
-
-    private static function convertToRegExp($route, $params)
-    {
-        $routeChunks = explode('/', $route);
-        $chunks = self::convertRouteToPattern($routeChunks, $params);
-        return '/^' . implode('\/', $chunks) . '\/?$/';
-    }
-
-    private static function convertRouteToPattern($routeChunks, $params)
-    {
-        $templates = $params['patterns'] ?? [];
-        $template = '/\{\:([a-zA-Z]+)(\??)\}/';
-
-        return array_map(function($chunk) use ($template, $templates) {
-            $currentMatches = [];
-            if (!preg_match($template, $chunk, $currentMatches)) {
-                return $chunk;
-            } else {
-                // Check if it has "/\{\:([a-zA-Z]+)}/" template in route description 
-                $routeKey = $templates[$currentMatches[1]] ?? '.+';
-                // Check if it has "/\(\??)/" template in route description 
-                $questionMark = $currentMatches[2] ?? ''; 
-                return $questionMark . '(' . $routeKey .')'. $questionMark;
-            }
-        }, $routeChunks);
     }
 }
