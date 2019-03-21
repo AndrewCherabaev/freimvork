@@ -1,0 +1,18 @@
+{
+    "description": "Custom no-dependencies framework",
+    "name": "andrew/freimvork",
+    "authors": [
+        {
+            "name": "Andrew Cherabaev",
+            "email": "a.cherabaev@mediasoft.team"
+        }
+    ],
+    "homepage": "https://github.com/AndrewCherabaev/freimvork",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Core\\": "framework"
+        }
+    }
+}
