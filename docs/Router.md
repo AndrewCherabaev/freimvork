@@ -28,9 +28,14 @@ $handler = explode('@', $this->handler['action']);
 $controller = CONTROLLERS_NAMESPACE . $handler[0];
 $action = $handler[1];
 /**
- * Now we need to run ControllerName::actionName($request, ...$params)
+ * Let's convert convert all params to their types
+ * $params = [Request, ...$this->params converted to their types]
+ */
+$params = MethodArgumentsConverter::getReflectedParams($controller, $action, array_merge([$this->request], $this->params));
+/**
+ * Now we need to run ControllerName::actionName($params)
  * Params desribed above in routes compiling
  */
-return call_user_func_array([new $controller, $action], array_merge([$this->request], $this->params));
+return call_user_func_array([new $controller, $action], $params));
 ```
 \- to get the request handler and run it.

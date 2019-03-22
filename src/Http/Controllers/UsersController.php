@@ -10,7 +10,7 @@ class UsersController extends Controller{
         $this->render('users:index', ['list' => range(1,10)]);
     }
 
-    public function show($request, $id, $key = false) 
+    public function show(Request $request, int $id, string $key = null) 
     {
         echo "User $id ${key}";
     }

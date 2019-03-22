@@ -2,6 +2,8 @@
 
 namespace Core\Http;
 
+use Core\Reflection\MethodArgumentsConverter;
+
 class Router {
     protected $routes = [];
     protected $params = [];
@@ -44,7 +46,9 @@ class Router {
         $controller = CONTROLLERS_NAMESPACE . $handler[0];
         $action = $handler[1];
 
-        return call_user_func_array([new $controller, $action], array_merge([$this->request], $this->params));
+        $params = MethodArgumentsConverter::getReflectedParams($controller, $action, array_merge([$this->request], $this->params));
+
+        return call_user_func_array([new $controller, $action], $params);
     }
 
     protected function matchRoutes($path)
