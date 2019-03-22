@@ -48,7 +48,7 @@ class Router {
 
         $params = MethodArgumentsConverter::getReflectedParams($controller, $action, array_merge([$this->request], $this->params));
 
-        return call_user_func_array([new $controller, $action], $params);
+        return call_user_func_array([new $controller, 'callAction'], [$action, $params]);
     }
 
     protected function matchRoutes($path)

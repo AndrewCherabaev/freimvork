@@ -24,4 +24,9 @@ class Controller {
     {
         return VIEW_PATH . implode(DS, explode($this->viewDelimiter, $viewName)) . '.' . $this->viewFileExtention;
     }
+
+    public function callAction(string $action, array $arguments)
+    {
+        echo call_user_func_array([$this, $action], $arguments);
+    }
 }

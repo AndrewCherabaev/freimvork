@@ -2,8 +2,8 @@
 
 namespace Core;
 
-use Core\Http\Request;
-use Core\Http\Router;
+use Core\Http\{Request, Router};
+use Core\ErrorHandler;
 
 class App {
     public static function run($withTimer = false) 
@@ -46,9 +46,14 @@ class App {
 
     private static function dispatch()
     {
-        $router = new Router;
+        try {
+            $router = new Router;
 
-        $router->dispatch();
+            $router->dispatch();
+        } catch (\Throwable $error) {
+            http_response_code(500);
+            self::dumpErrorLog($error);
+        }
     }
 
     private static function globals()
@@ -78,5 +83,12 @@ class App {
         $now = microtime(true);
         call_user_func_array('self::runWithoutTimer', func_get_args());
         error_log('Execution time: ' . (microtime(true) - $now)*1000 . ' milliseconds');
+    }
+
+    private static function dumpErrorLog($error)
+    {
+        $errorPrinter = new ErrorHandler($error);
+        echo $errorPrinter->printError();
+        echo $errorPrinter->printTrace();
     }
 }

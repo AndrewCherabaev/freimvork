@@ -40,6 +40,13 @@ class Container implements \IteratorAggregate, \Countable
         return array_key_exists($key, $this->parameters);
     }
 
+    public function insert(array $parameters = [])
+    {
+        foreach ($parameters as $key => $value) {
+            $this->set($key, $value);
+        }
+    }
+
     public function getIterator() {
         return new ArrayIterator($this);
     }

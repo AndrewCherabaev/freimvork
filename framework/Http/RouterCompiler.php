@@ -35,6 +35,9 @@ class RouterCompiler {
 
     private static function compileCacheFile()
     {
+        if (file_exists(CACHE_PATH . 'routes.php')) {
+            unlink(CACHE_PATH . 'routes.php');
+        }
         $compledRoutes = self::compileRoutes();
         $cacheFile = fopen(CACHE_PATH . 'routes.php', 'w+');
 
