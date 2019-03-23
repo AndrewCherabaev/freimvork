@@ -5,7 +5,7 @@ class MethodArgumentsConverter {
     public static function getReflectedParams($controller, $action, $params){
         $convertedArguments = [];
         
-        $reflection = self::getReflection($controller, $action);
+        $reflection = new \ReflectionMethod($controller, $action);
         $reflectionParams = $reflection->getParameters();
         
         foreach ($params as $index => $param) {
@@ -43,14 +43,5 @@ class MethodArgumentsConverter {
     private static function convertCustom($class, $param)
     {
         return new $class($param);
-    }
-
-    private static function getReflection($controller, $action)
-    {
-        try {
-            return new \ReflectionMethod($controller, $action);
-        } catch (\Throwable $error) {
-            throw new \Error(null, 0, (new $controller)->$action());
-        }
     }
 }

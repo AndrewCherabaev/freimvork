@@ -45,6 +45,9 @@ class Router {
         $handler = explode('@', $this->handler['action']);
         $controller = CONTROLLERS_NAMESPACE . $handler[0];
         $action = $handler[1];
+        if (!method_exists(new $controller, $action)) {
+            throw new \Error("Action '{$action}' does not exists in '{$controller}'");
+        }
 
         $params = MethodArgumentsConverter::getReflectedParams($controller, $action, array_merge([$this->request], $this->params));
 
@@ -53,8 +56,9 @@ class Router {
 
     protected function matchRoutes($path)
     {
-        $matches = [];
         foreach ($this->routes->all() as $route => $params) {
+            $matches = [];
+        
             if (preg_match($route, $path, $matches)) {
                 $this->params = array_slice($matches, 1);
 
