@@ -11,7 +11,7 @@ class RouterCompiler {
             self::compileCacheFile();
             $routesCache = include (CACHE_PATH . 'routes.php');
         }
-        return $routesCache['routes'];
+        return unserialize($routesCache['routes']);
     }
 
     private static function compileRoutes()
@@ -29,7 +29,7 @@ class RouterCompiler {
         }
         return [
             'hash' => md5_file(CONFIG_PATH . 'routes.php'),
-            'routes' => serialize($routes)
+            'routes' => $routes
         ];
     }
 
@@ -42,7 +42,7 @@ class RouterCompiler {
         $cacheFile = fopen(CACHE_PATH . 'routes.php', 'w+');
 
         fwrite($cacheFile, "<?php". PHP_EOL . "return [" . PHP_EOL . "\t'routes' => '");
-        fwrite($cacheFile, $compledRoutes['routes'] . "',\n\t");
+        fwrite($cacheFile, serialize($compledRoutes['routes']) . "',\n\t");
         fwrite($cacheFile, "'hash' => '" . $compledRoutes['hash'] . "'\n];");
         fclose($cacheFile);
 

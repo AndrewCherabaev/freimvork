@@ -13,7 +13,7 @@ class Router {
     public function __construct()
     {
         $compiledRoutes = RouterCompiler::getCompiledRoutes();
-        $this->routes = new \Core\Container(unserialize($compiledRoutes));
+        $this->routes = new \Core\Container($compiledRoutes);
         $this->request = request();
     }
 
