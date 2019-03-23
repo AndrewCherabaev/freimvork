@@ -48,7 +48,7 @@ class Container implements \IteratorAggregate, \Countable
     }
 
     public function getIterator() {
-        return new ArrayIterator($this);
+        return new ArrayIterator($this->parameters);
     }
     
     public function count() 
