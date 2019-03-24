@@ -1,7 +1,7 @@
 <?php
 namespace Core;
 
-class Container implements \IteratorAggregate, \Countable 
+class Container implements \IteratorAggregate, \Countable
 {
     protected $parameters = [];
 
@@ -51,7 +51,7 @@ class Container implements \IteratorAggregate, \Countable
         return new ArrayIterator($this->parameters);
     }
     
-    public function count() 
+    public function count()
     { 
         return count($this->parameters); 
     }

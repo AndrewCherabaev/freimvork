@@ -14,8 +14,26 @@ class RouterCompiler {
         return unserialize($routesCache['routes']);
     }
 
+    private static function compileCacheFile()
+    {
+        if (file_exists(CACHE_PATH . 'routes.php')) {
+            unlink(CACHE_PATH . 'routes.php');
+        }
+        $compledRoutes = self::compileRoutes();
+        $cacheFile = fopen(CACHE_PATH . 'routes.php', 'w+');
+
+        fwrite($cacheFile, "<?php". PHP_EOL . "return [" . PHP_EOL . "\t'routes' => '");
+        fwrite($cacheFile, serialize($compledRoutes['routes']) . "',\n\t");
+        fwrite($cacheFile, "'hash' => '" . $compledRoutes['hash'] . "'\n];");
+        fclose($cacheFile);
+
+    }
+
     private static function compileRoutes()
     {
+        if (!file_exists(CONFIG_PATH . 'routes.php')) {
+            throw new \Error("File 'routes.php' does not exists in " . CONFIG_PATH);
+        }
         $routes = [];
         $routesList = new \Core\Container(include (CONFIG_PATH . 'routes.php') ?? []);
         foreach ($routesList->all() as $route => $params) {
@@ -31,21 +49,6 @@ class RouterCompiler {
             'hash' => md5_file(CONFIG_PATH . 'routes.php'),
             'routes' => $routes
         ];
-    }
-
-    private static function compileCacheFile()
-    {
-        if (file_exists(CACHE_PATH . 'routes.php')) {
-            unlink(CACHE_PATH . 'routes.php');
-        }
-        $compledRoutes = self::compileRoutes();
-        $cacheFile = fopen(CACHE_PATH . 'routes.php', 'w+');
-
-        fwrite($cacheFile, "<?php". PHP_EOL . "return [" . PHP_EOL . "\t'routes' => '");
-        fwrite($cacheFile, serialize($compledRoutes['routes']) . "',\n\t");
-        fwrite($cacheFile, "'hash' => '" . $compledRoutes['hash'] . "'\n];");
-        fclose($cacheFile);
-
     }
 
     private static function convertRouteToPattern($routeChunks, $params)
