@@ -1,5 +1,5 @@
 <?php
 
 function request() {
-    return new Core\Http\Request();
+    return \Core\Http\Request::getInstance();
 }

@@ -25,7 +25,7 @@ class Router {
 
     protected function getHandler()
     {
-        $path = $this->request->getPath();
+        $path = $this->request->path();
         
         $route = $this->matchRoutes($path);
 

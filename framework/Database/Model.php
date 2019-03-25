@@ -10,14 +10,14 @@ class Model {
 
     /** @var Container $attributes */
     protected $attributes;
-
+    
     /** @var QueryBuilder $queryBuilder */
-    protected $queryBuilder;
+    protected static $queryBuilder;
 
     public function __construct($attributes = null) 
     {
         $this->attributes = new Container();
-        $this->queryBuilder = new QueryBuilder(static::$tablename);
+        self::$queryBuilder = new QueryBuilder(static::$tablename);
 
         if ($attributes) {
             if (is_array($attributes)) {
@@ -36,5 +36,10 @@ class Model {
     public static function getTableName()
     {
         return self::$tablename;
+    }
+
+    public static function query()
+    {
+        return self::$queryBuilder;
     }
 }

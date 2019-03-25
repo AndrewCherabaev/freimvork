@@ -3,7 +3,7 @@ namespace Core\Http;
 
 use Core\Container;
 
-class Request {
+class Request implements \IteratorAggregate, \Countable {
 
     const METHOD_HEAD = 'HEAD';
     const METHOD_GET = 'GET';
@@ -16,19 +16,29 @@ class Request {
     const METHOD_TRACE = 'TRACE';
     const METHOD_CONNECT = 'CONNECT';
 
+    protected static $instance;
+
     protected $uri;
     protected $path;
     protected $method;
     protected $queryParams;
     protected $params;
 
-    public function __construct()
+    protected function __construct()
     {
         $this->uri = $_SERVER["REQUEST_URI"] ?? '';
         $this->path = $_SERVER["PATH_INFO"] ?? '/';
         $this->method = $_SERVER["REQUEST_METHOD"] ?? self::METHOD_GET;
         $this->queryParams = $_SERVER["QUERY_STRING"] ?? '';
         $this->params = new Container(array_merge( $_REQUEST, $_GET, $_POST ));
+    }
+
+    public function getInstance()
+    {
+        if(empty(self::$instance)) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 
     public function __get($key)
@@ -41,12 +51,12 @@ class Request {
         return $this->params->has($key);
     }
 
-    public function paramsKeys()
+    public function keys()
     {
         return $this->params->keys();
     }
 
-    public function paramsValues()
+    public function values()
     {
         return $this->params->values();
     }
@@ -56,8 +66,17 @@ class Request {
         return $this->params->all();
     }
 
-    public function getPath()
+    public function path()
     {
         return $this->path;
+    }
+
+    public function getIterator() {
+        return $this->params->getIterator();
+    }
+    
+    public function count()
+    { 
+        return $this->params->count(); 
     }
 }

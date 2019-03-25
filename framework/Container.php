@@ -27,12 +27,13 @@ class Container implements \IteratorAggregate, \Countable
 
     public function get($key, $default = null)
     {
-        return array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
+        return $this->has($key) ? $this->parameters[$key] : $default;
     }
 
     public function set($key, $value)
     {
         $this->parameters[$key] = $value;
+        return $this;
     }
 
     public function has($key)
@@ -45,10 +46,11 @@ class Container implements \IteratorAggregate, \Countable
         foreach ($parameters as $key => $value) {
             $this->set($key, $value);
         }
+        return $this;
     }
 
     public function getIterator() {
-        return new ArrayIterator($this->parameters);
+        return new \ArrayIterator($this->parameters);
     }
     
     public function count()
