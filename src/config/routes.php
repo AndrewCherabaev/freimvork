@@ -6,11 +6,16 @@ return [
     ],
     '/users' => [
         'action' => 'UsersController@index',
-    ],
-    '/users/{:id}/{:key?}' => [
-        'action' => 'UsersController@show',
-        'patterns' => [
-            'id' => '\d+',
+        'group' => [
+            '/{:id}/{:key?}' => [
+                'action' => 'UsersController@show',
+                'patterns' => [
+                    'id' => '\d+',
+                ],
+            ],
+            '/posts' => [
+                'action' => 'PostsController@index'
+            ]
         ],
     ],
 ];
