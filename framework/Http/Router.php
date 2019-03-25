@@ -2,8 +2,7 @@
 
 namespace Core\Http;
 
-use Core\Reflection\MethodArgumentsConverter;
-use \Core\Containers\Container;
+use Core\{Reflection\MethodArgumentsConverter, Containers\Container};
 
 class Router {
     protected $routes = [];
