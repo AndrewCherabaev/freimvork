@@ -1,8 +1,8 @@
 <?php
-namespace Core;
+namespace Core\Containers;
 
-class Container implements \IteratorAggregate, \Countable
-{
+class Container implements \IteratorAggregate, \Countable {
+
     protected $parameters = [];
 
     public function __construct($parameters = [])

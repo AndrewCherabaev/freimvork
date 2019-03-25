@@ -1,7 +1,8 @@
 <?php
 namespace Core\Http;
 
-use Core\Container;
+use Core\Containers\Container;
+use Core\Http\Query;
 
 class Request implements \IteratorAggregate, \Countable {
 
@@ -21,15 +22,15 @@ class Request implements \IteratorAggregate, \Countable {
     protected $uri;
     protected $path;
     protected $method;
-    protected $queryParams;
+    protected $query;
     protected $params;
 
     protected function __construct()
     {
-        $this->uri = $_SERVER["REQUEST_URI"] ?? '';
+        $this->uri = $_SERVER["REQUEST_URI"];
         $this->path = $_SERVER["PATH_INFO"] ?? '/';
         $this->method = $_SERVER["REQUEST_METHOD"] ?? self::METHOD_GET;
-        $this->queryParams = $_SERVER["QUERY_STRING"] ?? '';
+        $this->query = new Query($_SERVER["QUERY_STRING"] ?? '');
         $this->params = new Container(array_merge( $_REQUEST, $_GET, $_POST ));
     }
 
@@ -69,6 +70,11 @@ class Request implements \IteratorAggregate, \Countable {
     public function path()
     {
         return $this->path;
+    }
+
+    public function query()
+    {
+        return $this->query;
     }
 
     public function getIterator() {

@@ -3,6 +3,7 @@
 namespace Core\Http;
 
 use Core\Reflection\MethodArgumentsConverter;
+use \Core\Containers\Container;
 
 class Router {
     protected $routes = [];
@@ -13,7 +14,7 @@ class Router {
     public function __construct()
     {
         $compiledRoutes = RouterCompiler::getCompiledRoutes();
-        $this->routes = new \Core\Container($compiledRoutes);
+        $this->routes = new Container($compiledRoutes);
         $this->request = request();
     }
 

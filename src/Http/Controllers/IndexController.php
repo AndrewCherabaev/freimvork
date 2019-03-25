@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use Core\Http\{Controller, Request};
 
 class IndexController extends Controller {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $this->render('index:index', ['name' => "World"]);
     }
 }
