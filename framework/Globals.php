@@ -23,13 +23,13 @@ function array_has($array, $keystring)
     return true;
 }
 
-function array_get($array, $keystring)
+function array_get($array, $keystring, $default = null)
 {
     $keypath = explode('.', $keystring);
     $value = $array;
     foreach ($keypath as $key) {
         if (!array_key_exists($key, $value)) {
-            return null;   
+            return $default;   
         }
 
         $value = $value[$key];
@@ -44,13 +44,11 @@ function array_set(&$array, $keystring, $value = null)
     $link = &$array;
     foreach ($keypath as $key) {
         if (!array_key_exists($key, $link)) {
-            $link[$key] = [];   
+            $link[$key] = [];
         }
         $link = &$link[$key];
     }
     $link = $value;
 
     unset($link);
-
-    return $this;
 }

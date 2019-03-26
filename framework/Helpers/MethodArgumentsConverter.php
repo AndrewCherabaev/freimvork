@@ -1,5 +1,5 @@
 <?php
-namespace Core\Reflection;
+namespace Core\Helpers;
 
 class MethodArgumentsConverter {
     public static function getReflectedParams($controller, $action, $params){

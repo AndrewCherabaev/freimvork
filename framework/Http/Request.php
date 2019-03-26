@@ -1,7 +1,7 @@
 <?php
 namespace Core\Http;
 
-use Core\{Containers\Container, Http\Query};
+use Core\{Helpers\Container, Http\Query};
 
 class Request implements \IteratorAggregate, \Countable {
 

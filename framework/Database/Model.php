@@ -1,7 +1,7 @@
 <?php
 namespace Core\Database;
 
-use Core\{Containers\Container, Database\QueryBuilder};
+use Core\{Helpers\Container, Database\QueryBuilder};
 
 class Model {
     protected static $tablename = '';

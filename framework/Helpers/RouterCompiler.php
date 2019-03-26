@@ -1,5 +1,5 @@
 <?php
-namespace Core\Http;
+namespace Core\Helpers;
 
 class RouterCompiler {
     const FILE = 'routes.php';

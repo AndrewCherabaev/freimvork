@@ -1,5 +1,5 @@
 <?php
-namespace Core\Containers;
+namespace Core\Helpers;
 
 class Container implements \IteratorAggregate, \Countable {
 
@@ -25,20 +25,21 @@ class Container implements \IteratorAggregate, \Countable {
         return array_values($this->parameters);
     }
 
-    public function get($key, $default = null)
+    public function has($keystring)
     {
-        return $this->has($key) ? $this->parameters[$key] : $default;
+        return array_has($this->parameters, $keystring);
     }
 
-    public function set($key, $value)
+    public function get($keystring, $default = null)
     {
-        $this->parameters[$key] = $value;
+        return array_get($this->parameters, $keystring, $default);
+    }
+
+    public function set($keystring, $value = null)
+    {
+        array_set($this->parameters, $keystring, $value);
+
         return $this;
-    }
-
-    public function has($key)
-    {
-        return array_key_exists($key, $this->parameters);
     }
 
     public function insert(array $parameters = [])

@@ -2,7 +2,7 @@
 
 namespace Core\Http;
 
-use Core\{Reflection\MethodArgumentsConverter, Containers\Container};
+use Core\Helpers\{Container, MethodArgumentsConverter, RouterCompiler};
 
 class Router {
     protected $routes = [];
@@ -12,8 +12,7 @@ class Router {
 
     public function __construct()
     {
-        $compiledRoutes = RouterCompiler::getCompiledRoutes();
-        $this->routes = new Container($compiledRoutes);
+        $this->routes = RouterCompiler::getCompiledRoutes();
         $this->request = request();
     }
 
@@ -29,7 +28,7 @@ class Router {
         
         $route = $this->matchRoutes($path);
 
-        $handler = $this->routes->get($route);
+        $handler = $this->routes[$route];
         
         if (!$route || !$handler) {
             http_response_code(404);
@@ -56,7 +55,7 @@ class Router {
 
     protected function matchRoutes($path)
     {
-        foreach ($this->routes->all() as $route => $params) {
+        foreach ($this->routes as $route => $params) {
             $matches = [];
         
             if (preg_match($route, $path, $matches)) {

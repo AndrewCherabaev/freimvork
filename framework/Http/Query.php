@@ -1,7 +1,7 @@
 <?php
 namespace Core\Http;
 
-use Core\Containers\QueryContainer;
+use Core\Helpers\Container;
 
 class Query {
     protected $container;
@@ -9,7 +9,7 @@ class Query {
     public function __construct(string $queryString = '')
     {
         parse_str($queryString, $output);
-        $this->container = new QueryContainer($output);        
+        $this->container = new Container($output);        
     }
 
     public function has($key) 
