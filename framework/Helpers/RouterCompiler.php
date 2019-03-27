@@ -43,6 +43,9 @@ class RouterCompiler {
         $routesList = self::unnestRoutes(include (CONFIG_PATH . self::FILE));
         foreach ($routesList as $route => $params) {
             $pattern = self::parseRoute($route, $params);
+            if (array_key_exists('patterns', $params)) {
+                unset($params['patterns']);
+            }
             $routes[$pattern] = $params;
         }
         return $routes;

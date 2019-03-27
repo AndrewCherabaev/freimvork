@@ -6,19 +6,15 @@ use Core\{Helpers\Container, Database\QueryBuilder};
 class Model {
     protected static $tablename = '';
 
-    protected $primaryKey = 'id';
+    protected static $primaryKey = 'id';
 
     /** @var Container $attributes */
     protected $attributes;
-    
-    /** @var QueryBuilder $queryBuilder */
-    protected static $queryBuilder;
 
-    public function __construct($attributes = null) 
+    public function __construct($attributes = null)
     {
         $this->attributes = new Container();
         $this->fill($attributes);
-        self::$queryBuilder = new QueryBuilder(static::$tablename);
     }
 
     public function __get($attribute)
@@ -28,18 +24,22 @@ class Model {
 
     public static function getTableName()
     {
-        return self::$tablename;
+        return static::$tablename;
+    }
+
+    public static function getPrimaryKey()
+    {
+        return static::$primaryKey;
     }
 
     public static function query()
     {
-        return self::$queryBuilder;
+        return new QueryBuilder(new static);
     }
 
     public function find($attributes)
     {
-        $this->fill($attributes);
-        return $this;
+        return $this->fill($attributes);
     }
 
     protected function fill($attributes)
@@ -48,7 +48,7 @@ class Model {
             if (is_array($attributes)) {
                 $this->attributes->insert($attributes);
             } else {
-                $this->attributes->set($this->primaryKey, $attributes);
+                $this->attributes->set(static::$primaryKey, $attributes);
             }
         }
 

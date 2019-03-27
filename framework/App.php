@@ -33,6 +33,7 @@ class App {
         define("CORE_PATH", FRAMEWORK_PATH . "Core" . DS);
         define("HELPER_PATH", FRAMEWORK_PATH . "Helpers" . DS);
         define("CACHE_PATH", FRAMEWORK_PATH . "cache" . DS);
+        define("DEFAULT_CONFIG_PATH", FRAMEWORK_PATH . "config" . DS);
 
         // REQUEST constants
         define("PLATFORM", $_REQUEST['p'] ?? 'home');
@@ -42,6 +43,8 @@ class App {
         // NAMESPACE constants
         define("APP_NAMESPACE", "App\\");    
         define("CONTROLLERS_NAMESPACE", APP_NAMESPACE . "Http\\Controllers\\");
+
+        session_start();
     }
 
     private static function dispatch()

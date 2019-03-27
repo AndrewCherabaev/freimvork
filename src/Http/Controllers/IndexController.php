@@ -6,6 +6,6 @@ use Core\Http\{Controller, Request};
 class IndexController extends Controller {
     public function index(Request $request)
     {
-        $this->render('index:index', ['name' => "World"]);
+        $this->render('index:index');
     }
 }
