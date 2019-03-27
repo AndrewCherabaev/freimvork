@@ -7,7 +7,7 @@ use App\Models\User;
 class UsersController extends Controller {
     public function index(Request $request)
     {
-        return $this->render('users:index', ['list' => range(1,10)]);
+        return $this->render('app:users:index', ['list' => range(1,10)]);
     }
 
     public function show(Request $request, User $user, string $key = null) 
