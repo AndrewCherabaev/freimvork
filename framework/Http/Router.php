@@ -12,7 +12,7 @@ class Router {
 
     public function __construct()
     {
-        $this->routes = RouterCompiler::getCompiledRoutes();
+        $this->routes = RouterCompiler::getCompiled();
         $this->request = request();
     }
 

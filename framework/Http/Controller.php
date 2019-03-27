@@ -1,7 +1,8 @@
 <?php
 namespace Core\Http;
 
-use Core\Helpers\ConfigConverter;
+use Core\Helpers\{ConfigConverter, ViewsCompiler};
+use Core\View;
 
 class Controller {
     protected $viewDelimiter = ':';
@@ -11,12 +12,9 @@ class Controller {
 
     protected function render(string $view, array $data = [])
     {
-        $viewConfig = ConfigConverter::getViewConfig();
-        $content = array_merge(
-            $viewConfig,
-            ['content' => new \Core\View($view, $data)]
-        );
-        $layout = new \Core\View($this->layout,  $content);
+        $content = ViewsCompiler::getCompiled();
+        $content['content'] = (new View($view, $data));
+        $layout = new View($this->layout,  $content);
         $layout->render();
     }
 

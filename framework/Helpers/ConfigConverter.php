@@ -21,7 +21,7 @@ class ConfigConverter {
 
     public static function getViewConfig()
     {
-        return self::getConfig('view.php');
+        return self::getConfig('views.php');
     }
 
     protected static function getConfig($filename, $CONFIG_PATH = CONFIG_PATH)
