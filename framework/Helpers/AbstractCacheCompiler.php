@@ -10,8 +10,10 @@ abstract class AbstractCacheCompiler {
         if (!file_exists(CONFIG_PATH . static::$FILE)) {
             throw new \Error("File " . CONFIG_PATH . static::$FILE . " does not exists in ");
         }
-
-        $cache = include (CACHE_PATH . static::$FILE);
+        
+        if (file_exists(CACHE_PATH . static::$FILE)) {
+            $cache = include (CACHE_PATH . static::$FILE);
+        }
 
         if (!file_exists(CACHE_PATH . static::$FILE) || !array_key_exists('hash', $cache) || static::expiredHash($cache['hash'])) {
             self::compileCacheFile();
