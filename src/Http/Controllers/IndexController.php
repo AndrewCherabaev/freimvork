@@ -8,7 +8,6 @@ use Core\Helpers\RouterCompiler;
 class IndexController extends Controller {
     public function index(Request $request)
     {
-        var_dump(RouterCompiler::getCompiled());
-        // $this->render('app:index:index');
+        $this->render('app:index:index');
     }
 }
