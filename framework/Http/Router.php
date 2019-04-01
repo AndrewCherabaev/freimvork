@@ -33,6 +33,7 @@ class Router {
         }
 
         self::$handler = $handler;
+        unset($route, $handler);
     }
 
     protected static function runHandler()

@@ -24,6 +24,6 @@ class View {
 
     private static function buildViewPath($viewName)
     {
-        return VIEW_PATH . implode(DS, explode(self::$viewDelimiter, $viewName)) . '.' . self::$viewFileExtention;
+        return VIEW_PATH . \implode(DS, \explode(self::$viewDelimiter, $viewName)) . '.' . self::$viewFileExtention;
     }
 }

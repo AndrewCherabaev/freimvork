@@ -16,6 +16,7 @@ class Controller {
         $content['content'] = (new View($view, $data));
         $layout = new View($this->layout,  $content);
         $layout->render();
+        unset($content, $layout);
     }
 
     public function callAction(string $action, array $arguments)

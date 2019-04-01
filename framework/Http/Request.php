@@ -30,7 +30,7 @@ class Request implements \IteratorAggregate, \Countable {
         $this->path = $_SERVER["PATH_INFO"] ?? '/';
         $this->method = $_SERVER["REQUEST_METHOD"] ?? self::METHOD_GET;
         $this->query = new Query($_SERVER["QUERY_STRING"] ?? '');
-        $this->params = new Container(array_merge( $_REQUEST, $_GET, $_POST ));
+        $this->params = new Container(\array_merge( $_REQUEST, $_GET, $_POST ));
     }
 
     public function getInstance()
@@ -48,7 +48,7 @@ class Request implements \IteratorAggregate, \Countable {
 
     public function method()
     {
-        return strtolower($this->method);
+        return \strtolower($this->method);
     }
 
     public function has($key)

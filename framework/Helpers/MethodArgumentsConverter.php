@@ -39,9 +39,6 @@ class MethodArgumentsConverter {
 
     private static function convertCustom($class, $param)
     {
-        if (\method_exists($class, 'getInstance')) {
-            return $class::getInstance($param);
-        }
-        return new $class($param);
+        return \method_exists($class, 'getInstance') ? $class::getInstance($param) : new $class($param);
     }
 }

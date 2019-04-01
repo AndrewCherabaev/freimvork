@@ -17,27 +17,27 @@ class Container implements \IteratorAggregate, \Countable {
 
     public function keys()
     {
-        return array_keys($this->parameters);
+        return \array_keys($this->parameters);
     }
 
     public function values()
     {
-        return array_values($this->parameters);
+        return \array_values($this->parameters);
     }
 
     public function has($keystring)
     {
-        return array_has($this->parameters, $keystring);
+        return \array_has($this->parameters, $keystring);
     }
 
     public function get($keystring, $default = null)
     {
-        return array_get($this->parameters, $keystring, $default);
+        return \array_get($this->parameters, $keystring, $default);
     }
 
     public function set($keystring, $value = null)
     {
-        array_set($this->parameters, $keystring, $value);
+        \array_set($this->parameters, $keystring, $value);
 
         return $this;
     }
@@ -56,6 +56,6 @@ class Container implements \IteratorAggregate, \Countable {
     
     public function count()
     { 
-        return count($this->parameters); 
+        return \count($this->parameters); 
     }
 }

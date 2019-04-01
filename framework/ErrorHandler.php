@@ -7,7 +7,6 @@ class ErrorHandler {
 
     public function __construct($error) {
         $this->error = $error;
-        $this->trace = $error->getTrace();
     }
 
     public function printError()
@@ -26,17 +25,18 @@ class ErrorHandler {
         $errorLog = '
             <br/> Stack Trace: <br/>
         ';
-        foreach ($this->trace as $index => $trace) {
-            $errorLog .= $this->printTraceItem($index,$trace);
+        $traces = $this->error->getTrace();
+        foreach ($traces as $index => $trace) {
+            $errorLog .= self::printTraceItem($index,$trace);
         }
 
         echo $errorLog;
     }
 
-    protected function printTraceItem($index, $item)
+    protected static function printTraceItem($index, $item)
     {
         $agruments = self::recursiveImplode(', ', $item["args"]);
-        if (!array_key_exists('file', $item)) {
+        if (!\array_key_exists('file', $item)) {
             return "#{$index} closure()<br/>";
         }
         return "
@@ -48,18 +48,12 @@ class ErrorHandler {
 
     private static function recursiveImplode(string $glue = '', array $array = []) 
     {
-        return implode($glue, array_map(function($item) use ($glue){
+        return \implode($glue, \array_map(function($item) use ($glue){
             switch (true) {
-                case is_array($item): return "[" . self::recursiveImplode($glue, $item) ."]";
-                case is_object($item): return get_class($item);
+                case \is_array($item): return "[" . self::recursiveImplode($glue, $item) ."]";
+                case \is_object($item): return \get_class($item);
                 default: return $item;
             }
         }, $array));
-    }
-
-    public function __toString()
-    {
-        $this->printError();
-        $this->printTraceItem();
     }
 }
