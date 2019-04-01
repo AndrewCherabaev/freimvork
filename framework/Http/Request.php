@@ -46,6 +46,11 @@ class Request implements \IteratorAggregate, \Countable {
         return $this->params->get($key);
     }
 
+    public function method()
+    {
+        return strtolower($this->method);
+    }
+
     public function has($key)
     {
         return $this->params->has($key);

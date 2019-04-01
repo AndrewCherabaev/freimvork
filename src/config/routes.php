@@ -2,19 +2,19 @@
 
 return [
     '/' => [
-        'action' => 'IndexController@index',
+        'get' => 'IndexController@index',
     ],
     '/users' => [
-        'action' => 'UsersController@index',
+        'get' => 'UsersController@index',
         'group' => [
             '/{:id}/{:key?}' => [
-                'action' => 'UsersController@show',
+                'get' => 'UsersController@show',
                 'patterns' => [
                     'id' => '\d+',
                 ],
             ],
             '/posts' => [
-                'action' => 'PostsController@index'
+                'get' => 'PostsController@index'
             ]
         ],
     ],

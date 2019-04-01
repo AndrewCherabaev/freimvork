@@ -20,6 +20,6 @@ class Controller {
 
     public function callAction(string $action, array $arguments)
     {
-        print call_user_func_array([$this, $action], $arguments);
+        print \call_user_func_array([$this, $action], $arguments);
     }
 }

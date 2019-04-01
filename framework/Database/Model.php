@@ -45,7 +45,7 @@ class Model {
     protected function fill($attributes)
     {
         if ($attributes) {
-            if (is_array($attributes)) {
+            if (\is_array($attributes)) {
                 $this->attributes->insert($attributes);
             } else {
                 $this->attributes->set(static::$primaryKey, $attributes);

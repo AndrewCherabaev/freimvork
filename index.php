@@ -1,4 +1,6 @@
 <?php
 
 require_once 'vendor/autoload.php';
-Core\App::run(true);
+$now = microtime(true);
+Core\App::run();
+error_log('exec ' . (microtime(true) - $now)*1000 . "ms");

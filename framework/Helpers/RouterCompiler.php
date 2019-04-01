@@ -11,7 +11,7 @@ class RouterCompiler extends AbstractCacheCompiler {
         $routesList = self::unnestRoutes(include (CONFIG_PATH . self::$FILE));
         foreach ($routesList as $route => $params) {
             $pattern = self::parseRoute($route, $params);
-            if (array_key_exists('patterns', $params)) {
+            if (\array_key_exists('patterns', $params)) {
                 unset($params['patterns']);
             }
             $routes[$pattern] = $params;
@@ -23,7 +23,7 @@ class RouterCompiler extends AbstractCacheCompiler {
     {
         $unnested = [];
         foreach ($routes as $route => $params) {
-            if (array_key_exists('group', $params)) {
+            if (\array_key_exists('group', $params)) {
                 $unnested += self::unnestRoutes($params['group'], $route);
                 unset($params['group']);
             }
@@ -35,28 +35,31 @@ class RouterCompiler extends AbstractCacheCompiler {
 
     private static function parseRoute($route, $params)
     {
-        $routeChunks = explode('/', $route);
+        $routeChunks = \explode('/', $route);
         $chunks = self::convertRouteToPattern($routeChunks, $params);
-        $pattern = '/^' . implode('\/', $chunks) . '\/?$/';
+        $pattern = '/^' . \implode('\/', $chunks) . '\/?$/';
         return $pattern;
     }
 
     private static function convertRouteToPattern($routeChunks, $params)
     {
+        $converted = [];
+        $currentMatches = [];
         $templates = $params['patterns'] ?? [];
         $template = '/\{\:([a-zA-Z]+)(\??)\}/';
 
-        return array_map(function($chunk) use ($template, $templates) {
-            $currentMatches = [];
-            if (!preg_match($template, $chunk, $currentMatches)) {
-                return $chunk;
+        foreach ($routeChunks as $chunk) {
+            if (!\preg_match($template, $chunk, $currentMatches)) {
+                $converted[] = $chunk;
             } else {
                 // Check if it has "/\{\:([a-zA-Z]+)}/" template in route description 
                 $routeKey = $templates[$currentMatches[1]] ?? '.+';
                 // Check if it has "/\(\??)/" template in route description 
                 $questionMark = $currentMatches[2] ?? ''; 
-                return $questionMark . '(' . $routeKey .')'. $questionMark;
+                $converted[] = $questionMark . '(' . $routeKey .')'. $questionMark;
             }
-        }, $routeChunks);
+        }
+        
+        return $converted;
     }
 }

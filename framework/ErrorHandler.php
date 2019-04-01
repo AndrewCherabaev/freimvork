@@ -12,23 +12,25 @@ class ErrorHandler {
 
     public function printError()
     {
-        return "
+        echo "
             <br/>
             <b> Error: {$this->error->getMessage()} </b> in {$this->error->getFile()}:{$this->error->getLine()}
             <br/>
         ";
+
+        return $this;
     }
 
     public function printTrace()
     {
-        $errorLog = "
+        $errorLog = '
             <br/> Stack Trace: <br/>
-        ";
+        ';
         foreach ($this->trace as $index => $trace) {
             $errorLog .= $this->printTraceItem($index,$trace);
         }
 
-        return $errorLog;
+        echo $errorLog;
     }
 
     protected function printTraceItem($index, $item)

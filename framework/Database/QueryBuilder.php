@@ -19,7 +19,7 @@ class QueryBuilder {
 
     public function select($columns = ['*'])
     {
-        $this->select = (is_array($columns)) ? $columns : func_get_args();
+        $this->select = (\is_array($columns)) ? $columns : \func_get_args();
         return $this;
     }
 
@@ -35,8 +35,8 @@ class QueryBuilder {
 
     public function where($key, $op, $value)
     {
-        if (is_array($key) && empty($op) && empty($value)) {
-            $this->where = array_map(function($where){
+        if (\is_array($key) && empty($op) && empty($value)) {
+            $this->where = \array_map(function($where){
                 return self::compileWhere($where[0], $where[1], $where[2] ?? null);
             }, $key);
             return $this;
@@ -60,11 +60,11 @@ class QueryBuilder {
     public function toSql()
     {
         if (!$this->select) $this->select();
-        $columns = implode(',', $this->select);
+        $columns = \implode(',', $this->select);
         $where = null;
         if ($this->where) {
-            $where = "WHERE " . implode(',', array_map(function($condition){
-                return implode('', $condition);
+            $where = "WHERE " . \implode(',', array_map(function($condition){
+                return \implode('', $condition);
             }, $this->where));
         }
         return "SELECT {$columns} FROM {$this->tablename} {$where}";

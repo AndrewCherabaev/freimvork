@@ -8,16 +8,18 @@ class MethodArgumentsConverter {
         $reflection = new \ReflectionMethod($controller, $action);
         $reflectionParams = $reflection->getParameters();
         
-        return array_map(function($index, $param) use ($reflectionParams) {
-            if (!array_key_exists($index, $reflectionParams) || !$reflectionParams[$index]->getType())
-                return $param;
+        foreach($params as $index => $param) {
+            if (!\array_key_exists($index, $reflectionParams) || !$reflectionParams[$index]->getType())
+            $convertedArguments[] = $param;
 
             $argType = $reflectionParams[$index]->getType();
 
-            return $argType->isBuiltin()
+            $convertedArguments[] = $argType->isBuiltin()
                 ? self::convertBuiltIn( (string) $argType, $param )
                 : self::convertCustom( (string) $argType, $param );
-        }, array_keys($params), array_values($params));
+        }
+
+        return $convertedArguments;
     }
 
     private static function convertBuiltIn($type, $param)
@@ -37,7 +39,7 @@ class MethodArgumentsConverter {
 
     private static function convertCustom($class, $param)
     {
-        if (method_exists($class, 'getInstance')) {
+        if (\method_exists($class, 'getInstance')) {
             return $class::getInstance($param);
         }
         return new $class($param);
