@@ -10,7 +10,7 @@ class App {
     {
         call_user_func_array(
             'self::run' . ($withTimer ? 'WithTimer' : 'WithoutTimer'),
-            ['self::init', 'self::globals', 'self::dispatch']
+            ['self::init', 'self::globals', 'self::prefetchCache', 'self::dispatch']
         );
     }
 
@@ -35,6 +35,9 @@ class App {
         define("HELPER_PATH", FRAMEWORK_PATH . "Helpers" . DS);
         define("CACHE_PATH", FRAMEWORK_PATH . "cache" . DS);
         define("DEFAULT_CONFIG_PATH", FRAMEWORK_PATH . "config" . DS);
+        if (!file_exists(CACHE_PATH) && !is_dir(CACHE_PATH)) {
+            mkdir(CACHE_PATH);
+        }
 
         // REQUEST constants
         define("PLATFORM", $_REQUEST['p'] ?? 'home');
