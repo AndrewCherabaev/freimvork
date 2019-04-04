@@ -10,7 +10,7 @@ class App {
     {
         call_user_func_array(
             'self::run' . ($withTimer ? 'WithTimer' : 'WithoutTimer'),
-            ['self::init', 'self::globals', 'self::prefetchCache', 'self::dispatch']
+            ['self::init', 'self::globals', 'self::dispatch']
         );
     }
 
