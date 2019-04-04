@@ -28,6 +28,7 @@ class App {
         // APP constants
         define("CONFIG_PATH", APP_PATH . "config" . DS);
         define("VIEW_PATH", APP_PATH . "Views" . DS);
+        define("APP_CACHE_PATH", APP_PATH . "cache" . DS);
 
         // FRAMEWORK constants
         define("CORE_PATH", FRAMEWORK_PATH . "Core" . DS);

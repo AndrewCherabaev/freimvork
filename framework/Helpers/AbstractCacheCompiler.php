@@ -1,6 +1,8 @@
 <?php
 namespace Core\Helpers;
 
+use Core\Helpers\ConfigConverter;
+
 abstract class AbstractCacheCompiler {
     protected static $FILE;
     protected static $KEY;
@@ -10,12 +12,14 @@ abstract class AbstractCacheCompiler {
         if (!file_exists(CONFIG_PATH . static::$FILE)) {
             throw new \Error("File " . CONFIG_PATH . static::$FILE . " does not exists in ");
         }
-        
-        if (file_exists(CACHE_PATH . static::$FILE)) {
+
+        $cacheExists = file_exists(CACHE_PATH . static::$FILE);
+
+        if ($cacheExists) {
             $cache = include (CACHE_PATH . static::$FILE);
         }
 
-        if (!file_exists(CACHE_PATH . static::$FILE) || !array_key_exists('hash', $cache) || static::expiredHash($cache['hash'])) {
+        if (!$cacheExists || !array_key_exists('hash', $cache) || static::expiredHash($cache['hash'])) {
             self::compileCacheFile();
 
             $cache = include (CACHE_PATH . static::$FILE);
@@ -33,10 +37,15 @@ abstract class AbstractCacheCompiler {
         $compledHash = md5_file(CONFIG_PATH . static::$FILE);
         $cacheFile = fopen(CACHE_PATH . static::$FILE, 'w+');
 
-        fwrite($cacheFile, "<?php". PHP_EOL . "return [" . PHP_EOL . "\t'" . static::$KEY . "' => '");
-        fwrite($cacheFile, serialize($compled) . "',\n\t");
-        fwrite($cacheFile, "'hash' => '" . $compledHash . "'\n];");
+        $content = static::getCompiledContent([static::$KEY, serialize($compled), $compledHash]);
+        fwrite($cacheFile, $content);
         fclose($cacheFile);
+    }
+
+    private static function getCompiledContent(array $data = [])
+    {
+        $template = file_get_contents(DEFAULT_CONFIG_PATH . 'cache_template.php');
+        return str_replace(['_key', '_data', '_hash'], $data, $template);
     }
 
 
