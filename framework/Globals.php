@@ -23,9 +23,9 @@ function array_has($array, $keystring)
     return true;
 }
 
-function array_get($array, $keystring, $default = null)
+function array_get($array, $keystring, $default = null, $defaultDelimiter = ':')
 {
-    $keypath = \explode('.', $keystring);
+    $keypath = \explode($defaultDelimiter, $keystring);
     $value = $array;
     foreach ($keypath as $key) {
         if (!\array_key_exists($key, $value)) {

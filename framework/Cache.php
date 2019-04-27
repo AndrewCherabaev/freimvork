@@ -29,7 +29,7 @@ class Cache {
 
         if (\count($path) > 1) {
             $keystring = array_slice($path, 1);
-            return array_get($content, implode('.', $keystring));
+            return array_get($content, implode(':', $keystring));
         }
 
         return $content;

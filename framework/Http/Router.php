@@ -24,7 +24,7 @@ class Router {
     {
         $route = self::matchRoutes(self::$routes, self::$request->path());
 
-        $handler = \array_get(self::$routes, $route . '.' . self::$request->method());
+        $handler = \array_get(self::$routes, $route . ':' . self::$request->method(), null);
         
         if (!$route || !$handler) {
             \http_response_code(404);
