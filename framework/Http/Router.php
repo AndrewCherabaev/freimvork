@@ -3,7 +3,7 @@
 namespace Core\Http;
 
 use Core\Helpers\Container;
-use Core\Helpers\MethodArgumentsConverter;
+use Core\Helpers\Reflector;
 use Core\Helpers\RouterCompiler;
 
 class Router {
@@ -45,7 +45,7 @@ class Router {
             throw new \Error("Action '{$action}' does not exists in '{$controller}'");
         }
 
-        $params = MethodArgumentsConverter::getReflectedParams($controller, $action, \array_merge([self::$request], self::$params));
+        $params = Reflector::getReflectedParams($controller, $action, \array_merge([self::$request], self::$params));
 
         return \call_user_func_array([new $controller, 'callAction'], [$action, $params]);
     }

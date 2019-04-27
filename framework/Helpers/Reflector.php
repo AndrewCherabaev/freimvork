@@ -1,7 +1,7 @@
 <?php
 namespace Core\Helpers;
 
-class MethodArgumentsConverter {
+class Reflector {
     public static function getReflectedParams($controller, $action, $params){
         $convertedArguments = [];
         
