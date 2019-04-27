@@ -28,12 +28,16 @@ class App {
         // APP constants
         define("CONFIG_PATH", APP_PATH . "config" . DS);
         define("VIEW_PATH", APP_PATH . "Views" . DS);
+        define("APP_CACHE_PATH", APP_PATH . "cache" . DS);
 
         // FRAMEWORK constants
         define("CORE_PATH", FRAMEWORK_PATH . "Core" . DS);
         define("HELPER_PATH", FRAMEWORK_PATH . "Helpers" . DS);
         define("CACHE_PATH", FRAMEWORK_PATH . "cache" . DS);
         define("DEFAULT_CONFIG_PATH", FRAMEWORK_PATH . "config" . DS);
+        if (!file_exists(CACHE_PATH) && !is_dir(CACHE_PATH)) {
+            mkdir(CACHE_PATH);
+        }
 
         // REQUEST constants
         define("PLATFORM", $_REQUEST['p'] ?? 'home');

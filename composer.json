@@ -10,10 +10,7 @@
     "homepage": "https://github.com/AndrewCherabaev/freimvork",
     "require": {
         "php": "^7.1",
-        "ext-pdo": "*",
-        "ext-pgsql": "*",
-        "ext-mysqli": "*",
-        "ext-sqlite3": "*"
+        "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
