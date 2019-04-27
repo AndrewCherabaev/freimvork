@@ -5,15 +5,15 @@ function request() {
 }
 
 function dd() {
-    call_user_func_array('var_dump', func_get_args());die;
+    \var_dump(\func_get_args());die;
 }
 
 function array_has($array, $keystring)
 {
-    $keypath = explode('.', $keystring);
+    $keypath = \explode('.', $keystring);
     $value = $array;
     foreach ($keypath as $key) {
-        if (!array_key_exists($key, $value)) {
+        if (!\array_key_exists($key, $value)) {
             return false;   
         }
 
@@ -25,10 +25,10 @@ function array_has($array, $keystring)
 
 function array_get($array, $keystring, $default = null)
 {
-    $keypath = explode('.', $keystring);
+    $keypath = \explode('.', $keystring);
     $value = $array;
     foreach ($keypath as $key) {
-        if (!array_key_exists($key, $value)) {
+        if (!\array_key_exists($key, $value)) {
             return $default;   
         }
 
@@ -40,15 +40,14 @@ function array_get($array, $keystring, $default = null)
 
 function array_set(&$array, $keystring, $value = null)
 {
-    $keypath = explode('.', $keystring);
+    $keypath = \explode('.', $keystring);
     $link = &$array;
     foreach ($keypath as $key) {
-        if (!array_key_exists($key, $link)) {
+        if (!\array_key_exists($key, $link)) {
             $link[$key] = [];
         }
         $link = &$link[$key];
     }
     $link = $value;
-
     unset($link);
 }

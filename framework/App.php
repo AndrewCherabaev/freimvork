@@ -2,16 +2,16 @@
 
 namespace Core;
 
-use Core\Http\{Request, Router};
+use Core\Http\Request; 
+use Core\Http\Router;
 use Core\ErrorHandler;
 
 class App {
-    public static function run($withTimer = false) 
+    public static function run() 
     {
-        call_user_func_array(
-            'self::run' . ($withTimer ? 'WithTimer' : 'WithoutTimer'),
-            ['self::init', 'self::globals', 'self::dispatch']
-        );
+        self::init(); 
+        self::globals(); 
+        self::dispatch();
     }
 
     private static function init()
@@ -54,48 +54,33 @@ class App {
     private static function dispatch()
     {
         try {
-            $router = new Router;
-
-            $router->dispatch();
+            Router::dispatch();
         } catch (\Throwable $error) {
-            http_response_code(500);
+            \http_response_code(500);
             self::dumpErrorLog($error);
         }
     }
 
     private static function globals()
     {
-        require_once 'Globals.php';
+        include 'Globals.php';
     }
 
     public static function getAppConstants()
     {
-        return get_defined_constants(true)['user'];
+        return \get_defined_constants(true)['user'];
     }
 
     public static function getAppConstantsJson()
     {
-        return json_encode(self::getAppConstants());
-    }
-
-    private static function runWithoutTimer()
-    {
-        foreach (func_get_args() as $callable) {
-            call_user_func($callable);
-        }
-    }
-
-    private static function runWithTimer()
-    {
-        $now = microtime(true);
-        call_user_func_array('self::runWithoutTimer', func_get_args());
-        error_log('Execution time: ' . (microtime(true) - $now)*1000 . ' milliseconds');
+        return \json_encode(self::getAppConstants());
     }
 
     private static function dumpErrorLog($error)
     {
         $errorPrinter = new ErrorHandler($error);
-        echo $errorPrinter->printError();
-        echo $errorPrinter->printTrace();
+        $errorPrinter
+            ->printError()
+            ->printTrace();
     }
 }

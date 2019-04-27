@@ -16,10 +16,11 @@ class Controller {
         $content['content'] = (new View($view, $data));
         $layout = new View($this->layout,  $content);
         $layout->render();
+        unset($content, $layout);
     }
 
     public function callAction(string $action, array $arguments)
     {
-        print call_user_func_array([$this, $action], $arguments);
+        print \call_user_func_array([$this, $action], $arguments);
     }
 }

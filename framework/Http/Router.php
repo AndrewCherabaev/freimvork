@@ -2,64 +2,61 @@
 
 namespace Core\Http;
 
-use Core\Helpers\{Container, MethodArgumentsConverter, RouterCompiler};
+use Core\Helpers\Container;
+use Core\Helpers\MethodArgumentsConverter;
+use Core\Helpers\RouterCompiler;
 
 class Router {
-    protected $routes = [];
-    protected $params = [];
-    protected $request;
-    protected $handler;
-
-    public function __construct()
-    {
-        $this->routes = RouterCompiler::getCompiled();
-        $this->request = request();
-    }
+    protected static $routes = [];
+    protected static $params = [];
+    protected static $request;
+    protected static $handler;
 
     public function dispatch() 
     {
-        $this->getHandler();
-        $this->runHandler();
+        self::$routes = RouterCompiler::getCompiled();
+        self::$request = \request();
+        self::getHandler();
+        self::runHandler();
     }
 
-    protected function getHandler()
+    protected static function getHandler()
     {
-        $path = $this->request->path();
-        
-        $route = $this->matchRoutes($path);
+        $route = self::matchRoutes(self::$routes, self::$request->path());
 
-        $handler = $this->routes[$route];
+        $handler = \array_get(self::$routes, $route . '.' . self::$request->method());
         
         if (!$route || !$handler) {
-            http_response_code(404);
+            \http_response_code(404);
             echo 'not found';
             exit();
         }
 
-        $this->handler = $handler;
+        self::$handler = $handler;
+        unset($route, $handler);
     }
 
-    protected function runHandler()
+    protected static function runHandler()
     {
-        $handler = explode('@', $this->handler['action']);
+        $handler = \explode('@', self::$handler);
         $controller = CONTROLLERS_NAMESPACE . $handler[0];
         $action = $handler[1];
-        if (!method_exists(new $controller, $action)) {
+        if (!\method_exists($controller, $action)) {
             throw new \Error("Action '{$action}' does not exists in '{$controller}'");
         }
 
-        $params = MethodArgumentsConverter::getReflectedParams($controller, $action, array_merge([$this->request], $this->params));
+        $params = MethodArgumentsConverter::getReflectedParams($controller, $action, \array_merge([self::$request], self::$params));
 
-        return call_user_func_array([new $controller, 'callAction'], [$action, $params]);
+        return \call_user_func_array([new $controller, 'callAction'], [$action, $params]);
     }
 
-    protected function matchRoutes($path)
+    protected static function matchRoutes($routes, $path)
     {
-        foreach ($this->routes as $route => $params) {
+        foreach ($routes as $route => $params) {
             $matches = [];
         
-            if (preg_match($route, $path, $matches)) {
-                $this->params = array_slice($matches, 1);
+            if (\preg_match($route, $path, $matches)) {
+                self::$params = \array_slice($matches, 1);
 
                 return $route;
             }
