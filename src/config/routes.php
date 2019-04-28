@@ -7,10 +7,10 @@ return [
     '/users' => [
         'get' => 'UsersController@index',
         'group' => [
-            '/{:id}/{:key?}' => [
+            '/{:user}/{:key?}' => [
                 'get' => 'UsersController@show',
-                'patterns' => [
-                    'id' => '\d+',
+                'where' => [
+                    'user' => '\d+',
                 ],
             ],
             '/posts' => [
