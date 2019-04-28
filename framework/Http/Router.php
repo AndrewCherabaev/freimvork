@@ -45,18 +45,18 @@ class Router {
             throw new \Error("Action '{$action}' does not exists in '{$controller}'");
         }
 
-        $params = Reflector::getReflectedParams($controller, $action, \array_merge([self::$request], self::$params));
+        $params = Reflector::getReflectedParams($controller, $action, self::$params);
 
         return \call_user_func_array([new $controller, 'callAction'], [$action, $params]);
     }
 
     protected static function matchRoutes($routes, $path)
     {
-        foreach ($routes as $route => $params) {
+        foreach ($routes as $route => $_) {
             $matches = [];
         
             if (\preg_match($route, $path, $matches)) {
-                self::$params = \array_slice($matches, 1);
+                self::$params = array_filter($matches, function($key) { return is_string($key); }, ARRAY_FILTER_USE_KEY);
 
                 return $route;
             }
