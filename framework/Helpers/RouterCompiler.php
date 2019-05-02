@@ -43,8 +43,8 @@ class RouterCompiler extends AbstractCacheCompiler {
 
     /**
     * Further rebuild
-    * /^(
     * compile array to one regexp like:
+    * /^(
     *      (?<get_Controller_indexAction>index pattern)
     *      |
     *      (?<get_Controller_show>show pattern)
@@ -78,7 +78,7 @@ class RouterCompiler extends AbstractCacheCompiler {
         $converted = [];
         $currentMatches = [];
         $templates = $params['where'] ?? [];
-        $template = '/\{\:([a-zA-Z]+)(\??)\}/';
+        $template = '/\{\:([a-zA-Z_]+)(\??)\}/';
 
         foreach ($routeChunks as $chunk) {
             if (!\preg_match($template, $chunk, $currentMatches)) {

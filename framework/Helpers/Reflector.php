@@ -2,20 +2,26 @@
 namespace Core\Helpers;
 
 class Reflector {
-    public static function getReflectedParams($controller, $action, $params){
-        $convertedArguments = [];
+    public static function getReflectedParams($controller, $action, $params) 
+    {
+        $converted = [];
 
         $reflection = new \ReflectionMethod($controller, $action);
         $reflectionParams = $reflection->getParameters();
         
         foreach($reflectionParams as $param) {
             $argType = $param->getType();
-            $convertedArguments[] = $argType->isBuiltin()
-                ? self::convertBuiltIn( (string) $argType, $params[$param->name] ?? null )
-                : self::convertCustom( (string) $argType, $params[$param->name] ?? null );
+            $argument = $params[$param->name] ?? null;
+            $converted[] = is_null($argType) 
+                ? $argument 
+                : (
+                    $argType->isBuiltin()
+                    ? self::convertBuiltIn( (string) $argType, $argument )
+                    : self::convertCustom( (string) $argType, $argument )
+                );
         }
 
-        return $convertedArguments;
+        return $converted;
     }
 
     private static function convertBuiltIn($type, $param)
