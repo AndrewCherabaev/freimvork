@@ -1,4 +1,5 @@
 {
+    "version": "0.0.1",
     "description": "Custom no-dependencies framework",
     "name": "andrew/freimvork",
     "authors": [
