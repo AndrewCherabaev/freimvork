@@ -1,19 +1,13 @@
 # freimvork
 Custom no-dependencies framework
 
-
-# Installation
-```
-git clone git@github.com:AndrewCherabaev/freimvork.git
-cd freimvork
-composer install
-php -S localhost:8000
-```
-
 # About 
 Custom framework without any dependencies, built on top of itself.
 
-It's a educational project for my trainies to show how to frameworks produce their behavior.
+It's a educational project for me and my trainies to research how frameworks produce their behavior.
+
+# How-to
+- [How to start a project](./docs/howto/Startup.md)
 
 # List of con(ten|cep)ts
 - [App](./docs/App.md)
