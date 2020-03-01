@@ -1,5 +1,5 @@
 <?php
-namespace Core\Helpers;
+namespace Freimvork\Helpers;
 
 class RouterCompiler extends AbstractCacheCompiler {
     protected static $FILE = 'routes.php';

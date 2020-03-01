@@ -1,5 +1,5 @@
 <?php
-namespace Core\Helpers;
+namespace Freimvork\Helpers;
 
 class Container implements \IteratorAggregate, \Countable {
 

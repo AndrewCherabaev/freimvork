@@ -1,5 +1,5 @@
 <?php
-namespace Core;
+namespace Freimvork;
 
 class Cache {
     public static function remember($key, $data)

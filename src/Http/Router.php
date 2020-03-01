@@ -1,11 +1,20 @@
 <?php
+/**
+ * Author: me
+ * 
+ * Dispatch {@see Core\Http\Request} to a proper {@see Core\Http\Controller} inherited class
+ * @package Core\Http\Router
+ */
+namespace Freimvork\Http;
 
-namespace Core\Http;
-
-use Core\Helpers\Container;
-use Core\Helpers\Reflector;
-use Core\Helpers\RouterCompiler;
-
+use Freimvork\Helpers\Container;
+use Freimvork\Helpers\Reflector;
+use Freimvork\Helpers\RouterCompiler;
+/**
+ * Dispatch request to a proper handler
+ * 
+ * @package Router
+ */
 class Router {
     protected static $routes = [];
     protected static $params = [];

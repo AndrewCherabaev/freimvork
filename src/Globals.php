@@ -1,7 +1,7 @@
 <?php
 
 function request() {
-    return \Core\Http\Request::getInstance();
+    return \Freimvork\Http\Request::getInstance();
 }
 
 function dd() {

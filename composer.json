@@ -1,6 +1,7 @@
 {
-    "description": "Custom no-dependencies framework",
-    "name": "andrew/freimvork",
+    "description": "Framework written for fun",
+    "name" : "andrew/freimvork",
+    "version": "v0.1",
     "authors": [
         {
             "name": "Andrew Cherabaev",
@@ -9,13 +10,11 @@
     ],
     "homepage": "https://github.com/AndrewCherabaev/freimvork",
     "require": {
-        "php": "^7.1",
-        "ext-pdo": "*"
+        "php": "^7.1"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "Core\\": "framework/"
+            "Freimvork\\": "src/"
         }
     }
 }

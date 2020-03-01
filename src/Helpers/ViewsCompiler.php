@@ -1,7 +1,7 @@
 <?php
-namespace Core\Helpers;
+namespace Freimvork\Helpers;
 
-use Core\View;
+use Freimvork\View;
 
 class ViewsCompiler extends AbstractCacheCompiler {
     protected static $FILE = 'views.php';

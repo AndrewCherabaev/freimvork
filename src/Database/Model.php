@@ -1,7 +1,7 @@
 <?php
-namespace Core\Database;
+namespace Freimvork\Database;
 
-use Core\{Helpers\Container, Database\QueryBuilder};
+use Freimvork\{Helpers\Container, Database\QueryBuilder};
 
 class Model {
     protected static $tablename = '';

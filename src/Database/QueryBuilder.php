@@ -1,7 +1,7 @@
 <?php
-namespace Core\Database;
+namespace Freimvork\Database;
 
-use Core\Helpers\ConfigConverter;
+use Freimvork\Helpers\ConfigConverter;
 use PDO;
 
 class QueryBuilder {

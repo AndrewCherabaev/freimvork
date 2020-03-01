@@ -1,7 +1,7 @@
 <?php
-namespace Core\Helpers;
+namespace Freimvork\Helpers;
 
-use Core\Helpers\ConfigConverter;
+use Freimvork\Helpers\ConfigConverter;
 
 abstract class AbstractCacheCompiler {
     protected static $FILE;

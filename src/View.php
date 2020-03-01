@@ -1,5 +1,5 @@
 <?php
-namespace Core;
+namespace Freimvork;
 
 class View {
     protected static $viewDelimiter = ':';

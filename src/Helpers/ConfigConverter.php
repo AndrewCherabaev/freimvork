@@ -1,5 +1,5 @@
 <?php
-namespace Core\Helpers;
+namespace Freimvork\Helpers;
 
 class ConfigConverter {
     public static function getDatabaseConfig()

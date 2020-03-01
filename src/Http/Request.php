@@ -1,7 +1,7 @@
 <?php
-namespace Core\Http;
+namespace Freimvork\Http;
 
-use Core\{Helpers\Container, Http\Query};
+use Freimvork\{Helpers\Container, Http\Query};
 
 class Request implements \IteratorAggregate, \Countable {
 

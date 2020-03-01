@@ -1,5 +1,5 @@
 <?php
-namespace Core;
+namespace Freimvork;
 
 class ErrorHandler {
     protected $error;

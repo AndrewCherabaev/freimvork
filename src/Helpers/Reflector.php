@@ -1,5 +1,5 @@
 <?php
-namespace Core\Helpers;
+namespace Freimvork\Helpers;
 
 class Reflector {
     public static function getReflectedParams($controller, $action, $params) 

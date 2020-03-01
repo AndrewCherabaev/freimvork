@@ -1,8 +1,8 @@
 <?php
-namespace Core\Http;
+namespace Freimvork\Http;
 
-use Core\Helpers\{ConfigConverter, ViewsCompiler};
-use Core\View;
+use Freimvork\Helpers\{ConfigConverter, ViewsCompiler};
+use Freimvork\View;
 
 class Controller {
     protected $viewDelimiter = ':';
