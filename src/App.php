@@ -65,13 +65,7 @@ class App {
         // FRAMEWORK constants
         define("CORE_PATH", FRAMEWORK_PATH . "Core" . DS);
         define("HELPER_PATH", FRAMEWORK_PATH . "Helpers" . DS);
-        // define("CACHE_PATH", FRAMEWORK_PATH . "cache" . DS);
         define("DEFAULT_CONFIG_PATH", FRAMEWORK_PATH . "config" . DS);
-
-        // REQUEST constants
-        define("PLATFORM", $_REQUEST['p'] ?? 'home');
-        define("CONTROLLER", $_REQUEST['c'] ?? 'Index');
-        define("ACTION", $_REQUEST['a'] ?? 'index');
 
         // NAMESPACE constants
         define("APP_NAMESPACE", "App\\");    

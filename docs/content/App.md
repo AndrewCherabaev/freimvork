@@ -8,12 +8,13 @@ At first we define all global constants, that used in application:
 ```php
 // ROOT constants
 define("APP_PATH", ROOT . 'src' . DS);  
-define("FRAMEWORK_PATH", ROOT . "framework" . DS);    
+define("FRAMEWORK_PATH", __DIR__ . DS);    
 define("PUBLIC_PATH", ROOT . "public" . DS);    
 
 // APP constants
 define("CONFIG_PATH", APP_PATH . "config" . DS);
 define("VIEW_PATH", APP_PATH . "Views" . DS);
+define("CACHE_PATH", APP_PATH . "cache" . DS);
 
 // FRAMEWORK constants
 define("CORE_PATH", FRAMEWORK_PATH . "Core" . DS);

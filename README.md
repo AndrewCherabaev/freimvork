@@ -6,15 +6,19 @@ Custom framework without any dependencies, built on top of itself.
 
 It's a educational project for me and my trainies to research how frameworks produce their behavior.
 
-# How-to
+# [How-to](./docs/howto/README.md)
 - [How to start a project](./docs/howto/Startup.md)
+- [How to create empty project](./docs/howto/CreateApp.md)
 
-# List of con(ten|cep)ts
-- [App](./docs/App.md)
-- [Globals](./docs/Globals.md)
+# Documentation
+Whole documentation is placed in [Manual](./docs/manual/README.md) pages. Follow it if you want to make an appliction
+
+# [List of con(ten|cep)ts](./docs/contend/README.md)
+- [App](./docs/content/App.md)
+- [Globals](./docs/content/Globals.md)
 - Http
-    - [Router](./docs/Router.md)
-    - [Request](./docs/Request.md)
-    - [Controller](./docs/Controller.md)
+    - [Router](./docs/content/Router.md)
+    - [Request](./docs/content/Request.md)
+    - [Controller](./docs/content/Controller.md)
 - Reflection
-    - [MethodArgumentsConverter](./docs/MethodArgumentsConverter.md)
+    - [MethodArgumentsConverter](./docs/content/MethodArgumentsConverter.md)
