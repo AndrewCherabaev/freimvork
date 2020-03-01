@@ -13,7 +13,7 @@ It's a educational project for me and my trainies to research how frameworks pro
 # Documentation
 Whole documentation is placed in [Manual](./docs/manual/README.md) pages. Follow it if you want to make an appliction
 
-# [List of con(ten|cep)ts](./docs/contend/README.md)
+# [List of con(ten|cep)ts](./docs/content/README.md)
 - [App](./docs/content/App.md)
 - [Globals](./docs/content/Globals.md)
 - Http
